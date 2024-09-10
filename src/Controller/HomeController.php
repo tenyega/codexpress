@@ -17,17 +17,6 @@ class HomeController extends AbstractController
    
 
 
-    #[Route('/profile', name: 'profile')]
-    public function profile(): Response
-    {
 
-        return $this->render('home/profile.html.twig');
-    }
-
-    #[Route('/category', name: 'category')]
-    public function category(): Response
-    {
-
-        return $this->render('home/category.html.twig');
-    }
+   
 }
