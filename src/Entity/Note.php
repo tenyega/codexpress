@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[ORM\Entity(repositoryClass: NoteRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -55,13 +54,12 @@ class Note
 
 
 
-    public function __construct(private SluggerInterface $slugger)
+    public function __construct()
     {
         $this->notifications = new ArrayCollection(); // Here its the array collection of notifications.
         $this->setPublic(false); // as we kept our is_public cant be null and at the intitial stage we can set it to false;
         // $this->title = 'new title -' . $this->getId(); // Just to get  a unique title for our note.
         $this->title = uniqid('note-'); // Just to get  a unique title for our note.
-        $this->slug = $slugger->slug($this->getTitle());
     }
 
     #[ORM\PrePersist]
