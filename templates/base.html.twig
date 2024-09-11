@@ -3,18 +3,21 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>
-			{% block title %}{% endblock %}Code Express!
+			{% block title %}{% endblock %}- Code Express!
 		</title>
-		<link rel="icon" href="">
-		{% block stylesheets %}
-		{% endblock %}
+		<link rel="icon" href=""> {% block stylesheets %}{% endblock %}
 		{% block javascripts %}
 			{% block importmap %}
 				{{ importmap('app') }}
+
 			{% endblock %}
 		{% endblock %}
 	</head>
 	<body>
+		{{include('components/navbar.html.twig') }}
+
 		{% block body %}{% endblock %}
+		{% include('components/footer.html.twig') %}
+
 	</body>
 </html>

@@ -4,9 +4,34 @@
 {% endblock %}
 
 {% block body %}
-	<h1 class="text-5xl text-green-500">HOME PAGE
-	</h1>
-	{{ dump(lastNotes) }}
+	<header class="">
+		<h1 class="text-5xl text-green-500">HOME PAGE
+		</h1>
+		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.borum.dqsdqs</p>
+	</header>
+	<div class="">
+		<h3>Lorem, ipsum dolor.</h3>
+		<p>We have total of
+			{{lastNotes|length}}
+			no of notes public
+		</p>
+		<div class="">
+
+			{% for item in lastNotes %}
+				<div class="">
+					Title:-
+					{{item.title}}
+					<br>
+					Category :-
+					{{item.category.title}}
+					&nbsp;
+					<a href="{{path('app_note_show', {'slug': item.slug})}}">
+						check the note</a>
+				</div>
+
+			{% endfor %}
+		</div>
+	</div>
 
 
 {% endblock %}
