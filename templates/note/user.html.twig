@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	All Public Notes
+	{{creator.username}}'s notes
 {% endblock %}
 
 {% block body %}
-	<h1>All Public Notes</h1>
-	{% for item in all_notes %}
+	<h1>{{creator.username}}'s notes</h1>
+	{% for item in userNotes %}
 		{{ dump(item) }}
 		<a href="{{ path('app_note_show', {'slug':item.slug})}}">
 			SHOW
