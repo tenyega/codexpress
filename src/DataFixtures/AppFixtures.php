@@ -3,6 +3,8 @@
 namespace App\DataFixtures;
 
 use App\Entity\Category;
+use App\Entity\Like;
+use App\Entity\Network;
 use App\Entity\Note;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -23,11 +25,10 @@ class AppFixtures extends Fixture
     }
     public function load(ObjectManager $manager): void
     {
-
         $faker = Factory::create('fr_FR');
-        $categoryArray = []; // this table is for conversing the category object  
+        $categoryArray = [];
 
-        # Tableau contenant les catégories
+        // Categories
         $categories = [
             'HTML' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-plain.svg',
             'CSS' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-plain.svg',
@@ -44,25 +45,26 @@ class AppFixtures extends Fixture
             'Java' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original-wordmark.svg',
         ];
         foreach ($categories as $title => $icon) {
-            $category = new Category(); // Creating a new object of the type category so that w can persit in our database. 
-
-            // to loop through each categories associative table. 
-            $category->setTitle($title); // Here we set each values of the object to insert into our database. 
+            $category = new Category();
+            $category->setTitle($title);
             $category->setIcon($icon);
-            array_push($categoryArray, $category);
+            $categoryArray[] = $category;
             $manager->persist($category);
         }
-        //CREATING 10 USERS 
+
+        // Users and Notes
         for ($i = 0; $i < 10; $i++) {
-            $username = $faker->userName(); // Generating user name using faker and its method userName();
+            $username = $faker->userName();
             $usernameFinal = $this->slug->slug($username);
             $user = new User();
-            $user->setEmail($usernameFinal .'@'. $faker->freeEmailDomain())
+            $user->setEmail($usernameFinal . '@' . $faker->freeEmailDomain())
                 ->setUsername($username)
                 ->setPassword($this->hash->hashPassword($user, 'admin'))
-                ->setRoles(['ROLE_USER']);
+                ->setRoles(['ROLE_USER'])
+                ->setImage($faker->imageUrl(640, 480, 'animals', true));
             $manager->persist($user);
-            // this code here is to get 10  note to each user
+
+            // Create Notes for each User
             for ($j = 0; $j < 10; $j++) {
                 $note = new Note();
                 $note->setTitle($faker->sentence())
@@ -74,6 +76,31 @@ class AppFixtures extends Fixture
                     ->setCategory($faker->randomElement($categoryArray));
                 $manager->persist($note);
             }
+        }
+
+        // Persist and Flush Users and Notes
+        $manager->flush();
+
+        // Likes
+        $users = $manager->getRepository(User::class)->findAll();
+        $notes = $manager->getRepository(Note::class)->findAll();
+
+        if (!empty($users) && !empty($notes)) {
+            for ($i = 0; $i < 30; $i++) {
+                $like = new Like();
+                $like->setNote($faker->randomElement($notes));
+                $like->setCreator($faker->randomElement($users));
+                $manager->persist($like);
+            }
+        }
+
+        // Networks
+        for ($i = 0; $i < 10; $i++) {
+            $network = new Network();
+            $network->setCreator($faker->randomElement($users));
+            $network->setName($faker->company());
+            $network->setUrl($faker->url());
+            $manager->persist($network);
         }
 
         $manager->flush();

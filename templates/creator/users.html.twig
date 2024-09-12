@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}USER PROFILE
+{% endblock %}
+
+{% block body %}
+	<h1>PROFILE OF THE USER
+	</h1>
+
+	{% for item in users %}
+		<h1>{{item.username}}</h1>
+		<h3>{{item.email}}</h3>
+		<img src="{{item.image}}" alt="userImage" width="80" height="80">
+	{% endfor %}
+
+{% endblock %}
