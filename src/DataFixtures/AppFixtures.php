@@ -96,10 +96,26 @@ class AppFixtures extends Fixture
         }
 
         // Networks
+        $socialMediaNetworks = [
+            'Facebook',
+            'Twitter',
+            'Instagram',
+            'LinkedIn',
+            'Snapchat',
+            'TikTok',
+            'Pinterest',
+            'Reddit',
+            'YouTube',
+            'WhatsApp',
+            'WeChat',
+            'Telegram',
+            'Tumblr',
+            'Vimeo'
+        ];
         for ($i = 0; $i < 10; $i++) {
             $network = new Network();
             $network->setCreator($faker->randomElement($users));
-            $network->setName($faker->company());
+            $network->setName($faker->randomElement($socialMediaNetworks));
             $network->setUrl($faker->url());
             $manager->persist($network);
         }
