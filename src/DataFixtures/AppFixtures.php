@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\Like;
 use App\Entity\Network;
 use App\Entity\Note;
+use App\Entity\Notification;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -101,6 +102,18 @@ class AppFixtures extends Fixture
             $network->setName($faker->company());
             $network->setUrl($faker->url());
             $manager->persist($network);
+        }
+
+        //Notifications
+        for ($i = 0; $i < 10; $i++) {
+
+            $notification = new Notification();
+            $notification->setTitle($faker->emoji())
+                ->setType($faker->bothify('?????-#####'))
+                ->setArchived($faker->boolean(70))
+                ->setContent($faker->sentence())
+                ->setNoteId($faker->randomElement($notes));
+            $manager->persist($notification);
         }
 
         $manager->flush();
