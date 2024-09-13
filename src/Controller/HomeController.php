@@ -22,7 +22,8 @@ class HomeController extends AbstractController
             6
         );
         return $this->render('home/index.html.twig', [
-            'lastNotes' => $lastNotes
+            'lastNotes' => $lastNotes,
+            'totalNotes' => count($nr->findAll())
         ]);
     }
 
