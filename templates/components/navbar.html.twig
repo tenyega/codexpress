@@ -1,19 +1,22 @@
-<nav class="flex justify-between items-center bg-neutral-100 p-2">
-	<img src="https://avatar.iran.liara.run/public/33" alt="logo" width="32" class="">
-	<div class="flex justify-between items-center gap-4">
-		<form action="" method="post" class="flex items-center border-2 border-neutral-700 rounded-md p-2">
+<nav class="flex items-center justify-between p-2 bg-slate-50">
+	<a href="{{path('app_home')}}" class="flex items-center gap-1">
+		<img src="{{ asset('img/logo_dark.svg')}}" alt="logo" width="32" class="transition-transform duration-200 ease-in-out rounded-full hover:scale-95">
+		<p>CodeXpress</p>
+	</a>
+	<div class="flex items-center justify-between gap-4">
+		<form action="" method="post" class="items-center p-1 rounded-md md:flex bg-slate-100">
 			<input type="hidden" name="csrf_token" value="{{csrf_token('authenticate')}}">
 			<input type="text" name="" id='' placeholder="Search note...?" class="bg-transparent">
 			<button type="submit">
-				{{ ux_icon('mdi:search',{'class': 'h-6 w-6'}) }}
+				{{ ux_icon('mdi:search',{'class': 'h-6 w-6 text-neutral-600 hover:text-violet-600'}) }}
 
 			</button>
 		</form>
-		<div class="flex justify-between items-center gap-4">
-			<a href="{{path('app_note_new')}}" class="border-2 border-neutral-700 p-2 rounded-md">
+		<div class="flex items-center justify-between gap-4">
+			<a href="{{path('app_note_new')}}" class="p-2 border-2 rounded-md border-neutral-700">
 				{{ ux_icon('mdi:plus-thick',{'class': 'h-6 w-6'}) }}
 			</a>
-			<a href="{{path('app_profile_edit')}}" class="border-2 border-neutral-700 p-2 rounded-md">
+			<a href="{{path('app_profile_edit')}}" class="p-2 border-2 rounded-md border-neutral-700">
 				{{ ux_icon('mdi:cog-outline',{'class': 'h-6 w-6'}) }}
 			</a>
 			<a href="{{path('app_note_user', {'username': app.user.usernale ?? 'martine'})}}" class="p-2 rounded-full">

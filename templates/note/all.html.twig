@@ -12,7 +12,11 @@
 			SHOW
 		</a>
 
+		{% set lastMonth=  date('2024-07-07')%}
 
+		Published
+		{{lastMonth|time_diff}}
+		ago.
 	{% endfor %}
 
 
