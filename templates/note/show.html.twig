@@ -5,7 +5,16 @@
 {% endblock %}
 
 {% block body %}
-	SHOW A NOTE
+
+	{% for  message in app.flashes('success') %}
+
+		<div class=''>
+			<p>{{message}}</p>
+
+		</div>
+
+	{% endfor %}
+
 	<h1>{{note.title}}</h1>
 	<pre>
 		{{ dump(note) }}

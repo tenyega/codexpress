@@ -1,8 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello NoteController!
+{% block title %}Add New Note
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+ <script src="https://cdn.jsdelivr.net/npm/@tinymce/tinymce-webcomponent@2/dist/tinymce-webcomponent.min.js"></script>
 {% endblock %}
 
 {% block body %}
-	CREATE NEW NOTE
-{% endblock %}
+	{# <tinymce-editor 
+		api-key="no-api-key" 
+		height="500" 
+		menubar="false" 
+		plugins="advlist autolink lists link image charmap preview anchor
+				        searchreplace visualblocks code fullscreen
+				        insertdatetime media table code help wordcount" 
+		toolbar="undo redo | blocks | bold italic backcolor |
+				        alignleft aligncenter alignright alignjustify |
+				        bullist numlist outdent indent | removeformat | help" 
+		content_style="body
+						      {
+						        font-family:Helvetica,Arial,sans-serif;
+						        font-size:14px
+						      }"> #}
+		{{ form(noteForm) }}{% endblock %}

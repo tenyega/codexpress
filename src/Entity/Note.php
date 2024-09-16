@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[ORM\Entity(repositoryClass: NoteRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -67,6 +68,7 @@ class Note
         // $this->title = 'new title -' . $this->getId(); // Just to get  a unique title for our note.
         $this->title = uniqid('note-'); // Just to get  a unique title for our note.
         $this->likes = new ArrayCollection();
+        $this->views = 0;
     }
 
     #[ORM\PrePersist]
