@@ -1,23 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Register
+{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
+	{% for flash_error in app.flashes('verify_email_error') %}
+		<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+	{% endfor %}
 
-    <h1>Register</h1>
+	<h1>Register</h1>
 
-    {{ form_errors(registrationForm) }}
+	{{ form_errors(registrationForm) }}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
+	{{ form_start(registrationForm) }}
+	{{ form_row(registrationForm.username, {
+        attr: {
+            class:'border-2 border-voilet-950 rounded-md w-full focus:border-voilet-600'
+        }
+    }) }}
+
+	{# Here the attribute can also be set to the inputs using this like above or else u can go through the form details inside the RegistrationFormType to set these properties over there also  #}
+
+	{{ form_row(registrationForm.email,{
+          attr: {
+            class:'border-2 border-voilet-950 rounded-md w-full focus:border-voilet-600'
+        }
+    }) }}
+
+	{{ form_row(registrationForm.plainPassword, {
+            label: 'Password',
+              attr: {
+            class:'border-2 border-voilet-950 rounded-md w-full focus:border-voilet-600'
+        }
         }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+	{{ form_row(registrationForm.agreeTerms) }}
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+	<button type="submit" class="p-2 bg-green-500 rounded-md">Register</button>
+	{{ form_end(registrationForm) }}
 {% endblock %}

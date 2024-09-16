@@ -12,17 +12,28 @@
 
 			</button>
 		</form>
-		<div class="flex items-center justify-between gap-4">
-			<a href="{{path('app_note_new')}}" class="p-2 border-2 rounded-md border-neutral-700">
-				{{ ux_icon('mdi:plus-thick',{'class': 'h-6 w-6'}) }}
-			</a>
-			<a href="{{path('app_profile_edit')}}" class="p-2 border-2 rounded-md border-neutral-700">
-				{{ ux_icon('mdi:cog-outline',{'class': 'h-6 w-6'}) }}
-			</a>
-			<a href="{{path('app_note_user', {'username': app.user.usernale ?? 'martine'})}}" class="p-2 rounded-full">
-				<img src="https://avatar.iran.liara.run/public/33" alt="logo" width="32" class="">
+		{% if app.user %}
+			<div class="flex items-center justify-between gap-4">
+				<a href="{{path('app_note_new')}}" class="p-2 border-2 rounded-md border-neutral-700">
+					{{ ux_icon('mdi:plus-thick',{'class': 'h-6 w-6'}) }}
+				</a>
+				<a href="{{path('app_profile_edit')}}" class="p-2 border-2 rounded-md border-neutral-700">
+					{{ ux_icon('mdi:cog-outline',{'class': 'h-6 w-6'}) }}
+				</a>
+				<a href="{{path('app_note_user', {'username': app.user.usernale ?? 'martine'})}}" class="p-2 rounded-full">
+					<img src="https://avatar.iran.liara.run/public/33" alt="logo" width="32" class="">
 
-			</a>
+				</a>
+
+				<a href="{{path('app_logout') }}" class="p-2 border-2 rounded-md border-neutral-700" title='logout'>
+					{{ ux_icon('tabler:logout-2',{'class': 'h-6 w-6'}) }}
+
+				</a>
+			{% else %}
+				<a href="{{path('app_login')}}" class="p-2 border-2 rounded-md border-neutral-700" title='login'>
+					{{ ux_icon('material-symbols:login',{'class': 'h-6 w-6'}) }}
+				</a>
+			{% endif %}
 		</div>
 	</div>
 </nav>
