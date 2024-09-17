@@ -97,19 +97,29 @@ class NoteController extends AbstractController
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
 
     #[Route('/edit/{slug}', name: 'app_note_edit', methods: ['GET', 'POST'])]
-    public function edit(string $slug, NoteRepository $nr): Response
+    public function edit(string $slug, NoteRepository $nr, Request $request, EntityManagerInterface $em): Response
     {
         $note = $nr->findOneBySlug($slug);
 
-        if ($this->getUser() === $note->getCreator()) {
-            return $this->render('note/edit.html.twig', [
-                'note' => $note,
-                'creator' => $note->getCreator()
-            ]);
-        } else {
+        if ($this->getUser() != $note->getCreator()) {
             $this->addFlash('error', 'You can only edit your own note');
             return $this->redirectToRoute('app_note_show', ['slug' => $slug]);
         }
+
+        $form = $this->createForm(NoteType::class, $note);
+        $form = $form->handleRequest($request); // Recuperation des données de la requête POST
+
+        // Traitement des données
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em->persist($note);
+            $em->flush();
+            $this->addFlash('success', 'Your note has been updated'); // added a flash with this method but this needs to be shown to the user inside the twig file  also . 
+            return $this->redirectToRoute('app_note_show', ['slug' => $slug]);
+        }
+        return $this->render('note/edit.html.twig', [
+            'noteForm' => $form,
+        ]);
     }
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
     #[Route('/delete/{slug}', name: 'app_note_delete', methods: ['POST'])]

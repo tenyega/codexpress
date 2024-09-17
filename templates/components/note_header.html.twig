@@ -1,0 +1,23 @@
+<header class="py-5 md:py-16">
+	<div class="px-4 mx-auto sm:max-w-screen-sm md:max-w-screen-lg">
+		<ul class="flex gap-2 mb-4 text-sm text-violet-950">
+			<li class="after:content-['>']">
+				<a href="{{ path('app_home') }}">Home</a>
+			</li>
+			<li class="after:content-['>']">
+				<a href="{{ path('app_note_all') }}">All notes</a>
+			</li>
+			<li class="text-violet-600">
+				{{ note.title|slice(0,20) }}...
+			</li>
+		</ul>
+		<h1 class="text-4xl font-bold md:text-5xl">{{ note.title }}</h1>
+		<div class="flex items-center gap-2 text-sm">
+			<img src="{{ note.creator.image ?? 'https://avatar.iran.liara.run/public/50' }}" alt="{{ note.creator.username }}" class="inline-block mr-2 h-7 w-7">
+			<p class="text-slate-600">published
+				{{ note.createdAt|time_diff }}
+				ago by
+				{{ note.creator.username }}</p>
+		</div>
+	</div>
+</header>
