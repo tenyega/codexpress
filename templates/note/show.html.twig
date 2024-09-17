@@ -15,6 +15,15 @@
 
 	{% endfor %}
 
+	{% for  message in app.flashes('error') %}
+
+		<div class=''>
+			<p>{{message}}</p>
+
+		</div>
+
+	{% endfor %}
+
 	<h1>{{note.title}}</h1>
 	<pre>
 		{{ dump(note) }}

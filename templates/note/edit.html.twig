@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello NoteController!
+{% block title %}Edit your note
 {% endblock %}
 
 {% block body %}
 	EDIT NOTE
-	<pre>
-		{{ dump(note) }}
-	</pre>
+
+	{{ dump(note) }}
+	{{ dump(creator) }}
+	{{ dump(app.user) }}
 {% endblock %}

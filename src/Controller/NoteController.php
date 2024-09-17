@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Note;
+use App\Entity\User;
 use App\Form\NoteType;
 use App\Repository\NoteRepository;
 use App\Repository\UserRepository;
@@ -11,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/notes')]
@@ -28,6 +30,7 @@ class NoteController extends AbstractController
             'all_notes' => $all_notes,
         ]);
     }
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
 
     #[Route('/n/{slug}', name: 'app_note_show')]
     public function show(NoteRepository $nr, string $slug): Response
@@ -42,21 +45,32 @@ class NoteController extends AbstractController
             'note' => $note,
         ]);
     }
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
 
     #[Route('/u/{username}', name: 'app_note_user', methods: ['GET'])]
     public function userNotes(
         string $username,
         UserRepository $user
     ): Response {
-        $creator = $user->findByusername($username);
+        $creators = $user->findByusername($username);
+        $creator = $creators[0];
         return $this->render('note/user.html.twig', [
             'userNotes' => $creator->getNotes(),
             'creator' => $creator
         ]);
     }
+    // #[IsGranted('IS_AUTHENTICATED_FULLY')]
+
     #[Route('/new', name: 'app_note_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
     {
+
+        if (!$this->getUser()) {
+            $this->addFlash('error', 'you need to be logged in');
+            return $this->redirectToRoute('app_login');
+        }
+
+
         $form = $this->createForm(NoteType::class); // Chargement du formulaire
         $form = $form->handleRequest($request); // Recuperation des données de la requête POST
 
@@ -80,15 +94,24 @@ class NoteController extends AbstractController
             'noteForm' => $form
         ]);
     }
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
+
     #[Route('/edit/{slug}', name: 'app_note_edit', methods: ['GET', 'POST'])]
     public function edit(string $slug, NoteRepository $nr): Response
     {
         $note = $nr->findOneBySlug($slug);
-        return $this->render('note/edit.html.twig', [
-            'note' => $note
-        ]);
-    }
 
+        if ($this->getUser() === $note->getCreator()) {
+            return $this->render('note/edit.html.twig', [
+                'note' => $note,
+                'creator' => $note->getCreator()
+            ]);
+        } else {
+            $this->addFlash('error', 'You can only edit your own note');
+            return $this->redirectToRoute('app_note_show', ['slug' => $slug]);
+        }
+    }
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
     #[Route('/delete/{slug}', name: 'app_note_delete', methods: ['POST'])]
     public function delete(string $slug, NoteRepository $nr): Response
     {

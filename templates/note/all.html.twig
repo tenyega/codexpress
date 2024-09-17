@@ -6,6 +6,14 @@
 
 {% block body %}
 	<h1>All Public Notes</h1>
+	{% for  message in app.flashes('error') %}
+
+		<div class=''>
+			<p>{{message}}</p>
+
+		</div>
+
+	{% endfor %}
 	{% for item in all_notes %}
 		{{ dump(item) }}
 		<a href="{{ path('app_note_show', {'slug':item.slug})}}">
