@@ -53,24 +53,37 @@ class AppFixtures extends Fixture
             $manager->persist($category);
         }
 
+        // ADMIN USER 
+        $username = $faker->userName();
+        $usernameFinal = $this->slug->slug($username);
+        $user = new User();
+        $user->setEmail('mdolma@ymail.com')
+            ->setUsername($usernameFinal)
+            ->setPassword($this->hash->hashPassword($user, '123456'))
+            ->setRoles(['ROLE_ADMIN'])
+            ->setImage('https://avatar.iran.liara.run/public/50');
+            $manager->persist($user);
         // Users and Notes
         for ($i = 0; $i < 10; $i++) {
-            $username = $faker->userName();
-            $usernameFinal = $this->slug->slug($username);
-            $user = new User();
-            $user->setEmail($usernameFinal . '@' . $faker->freeEmailDomain())
-                ->setUsername($username)
-                ->setPassword($this->hash->hashPassword($user, 'admin'))
+
+
+
+            $usernameAdmin = $faker->userName();
+            $usernameFinalAdmin = $this->slug->slug($usernameAdmin);
+            $userAdmin = new User();
+            $userAdmin->setEmail($usernameFinalAdmin . '@' . $faker->freeEmailDomain())
+                ->setUsername($usernameAdmin)
+                ->setPassword($this->hash->hashPassword($userAdmin, 'admin'))
                 ->setRoles(['ROLE_USER'])
-                ->setImage($faker->imageUrl(640, 480, 'animals', true));
-            $manager->persist($user);
+                ->setImage('https://avatar.iran.liara.run/public/'.$i);
+            $manager->persist($userAdmin);
 
             // Create Notes for each User
             for ($j = 0; $j < 10; $j++) {
                 $note = new Note();
                 $note->setTitle($faker->sentence())
                     ->setSlug($this->slug->slug($note->getTitle()))
-                    ->setContent($faker->paragraphs(4, true))
+                    ->setContent($faker->randomHtml())
                     ->setPublic($faker->boolean(50))
                     ->setViews($faker->numberBetween(100, 10000))
                     ->setCreator($user)
@@ -97,20 +110,19 @@ class AppFixtures extends Fixture
 
         // Networks
         $socialMediaNetworks = [
-            'Facebook',
-            'Twitter',
-            'Instagram',
-            'LinkedIn',
-            'Snapchat',
-            'TikTok',
-            'Pinterest',
-            'Reddit',
-            'YouTube',
-            'WhatsApp',
-            'WeChat',
-            'Telegram',
-            'Tumblr',
-            'Vimeo'
+            'facebook',
+            'twitter',
+            'instagram',
+            'linkedIn',
+            'snapchat',
+            'tiktok',
+            'pinterest',
+            'reddit',
+            'youtube',
+            'whatsapp',
+            'telegram',
+            'tumblr',
+            'vimeo'
         ];
         for ($i = 0; $i < 10; $i++) {
             $network = new Network();

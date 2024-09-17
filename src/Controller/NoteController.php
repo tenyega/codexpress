@@ -40,9 +40,12 @@ class NoteController extends AbstractController
          * Get the collection of all the notes that are public and in descending order which is the most recently create first 
          */
         $note = $nr->findOneBy(['slug' => $slug]);
+        $array = $note->getCreator()->getNotes()->toArray();
+        $creatorNotes = array_slice($array, 0, 3);
         // $note= $nr->findOneBySlug($slug);  this method is same as that of the line before. doctrine is intelligent enough to access the property to find the one which we need 
         return $this->render('note/show.html.twig', [
             'note' => $note,
+            'creatorNotes' => $creatorNotes
         ]);
     }
     #[IsGranted('IS_AUTHENTICATED_FULLY')]

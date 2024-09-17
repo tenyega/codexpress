@@ -6,7 +6,6 @@
 {% block body %}
 	<h1>PROFILE OF THE USER
 	</h1>
-	<pre>
-    {{ dump(app.user) }}
-</pre>
+	<img src="{{app.user.image}}" alt="{{ 'Profile image of ' ~ app.user.username }}" class="w-16 h-16 mb-4 rounded-full">
+	{{ dump(app.user) }}
 {% endblock %}

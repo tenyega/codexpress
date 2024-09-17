@@ -21,7 +21,7 @@
 					{{ ux_icon('mdi:cog-outline',{'class': 'h-6 w-6'}) }}
 				</a>
 				<a href="{{path('app_note_user', {'username': app.user.username ?? 'martine'})}}" class="p-2 rounded-full">
-					<img src="https://avatar.iran.liara.run/public/33" alt="logo" width="32" class="">
+					<img src="{{ app.user.image ?? 'https://avatar.iran.liara.run/public/30' }}" alt="logo" width="32" class="">
 
 				</a>
 
