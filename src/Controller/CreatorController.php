@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Form\CreatorType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -19,11 +21,18 @@ class CreatorController extends AbstractController
             'users' => $ur->findAll()
         ]);
     }
+
     #[Route('/profile', name: 'app_profile', methods: ['GET'])]
-    public function profile(): Response
+    public function profile(Request $request): Response
     {
-        return $this->render('creator/profile.html.twig');
+        $form = $this->createForm(CreatorType::class, $this->getUser());
+        $form->handleRequest($request);
+        return $this->render('creator/profile.html.twig', [
+            'form' => $form
+        ]);
     }
+
+
     #[Route('/profile/edit', name: 'app_profile_edit', methods: ['GET', 'POST'])]
     public function edit(): Response
     {

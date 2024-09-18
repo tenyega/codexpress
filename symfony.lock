@@ -38,6 +38,9 @@
             "./migrations/.gitignore"
         ]
     },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v6.5.0"
+    },
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {
@@ -259,6 +262,9 @@
             "./config/packages/twig.yaml",
             "./templates/base.html.twig"
         ]
+    },
+    "symfony/ux-dropzone": {
+        "version": "v2.19.3"
     },
     "symfony/ux-icons": {
         "version": "2.19",
