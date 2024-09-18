@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Search results
+{% endblock %}
+
+{% block body %}
+	<header class="py-5 bg-gradient-to-r from-violet-100 via-slate-100 to-indigo-100 md:py-16">
+		<div class="px-4 mx-auto text-center sm:max-w-screen-sm md:max-w-screen-lg">
+			<h1 class="mb-6 text-4xl font-bold md:text-5xl">Search results</h1>
+			{% if searchQuery is defined %}
+				<p class="mb-4">
+					Search results for
+					<strong>{{ searchQuery }}</strong>
+				</p>
+			{% else %}
+				<form action="{{ path('app_search') }}" method="get" class="items-center p-1 mx-auto bg-white rounded-md shadow w-80">
+					<input type="hidden" name="csrf_token" value="{{ csrf_token('authenticate') }}">
+					<input type="text" name="q" id="" placeholder="What are you looking for?" class="w-full text-center bg-transparent outline-none" required>
+				</form>
+			{% endif %}
+		</div>
+	</header>
+	<main class="max-w-screen-lg px-4 py-5 mx-auto md:py-16">
+		{% if all_notes is defined %}
+			{% if all_notes|length > 0 %}
+				<p class="mb-4 text-center">
+					{{ all_notes|length }}
+					results on this page
+				</p>
+				{{ include('components/notes-list.html.twig') }}
+			{% else %}
+				<p class="mb-4 text-center text-slate-600">No results found</p>
+			{% endif %}
+		{% else %}
+			<div class="flex flex-col items-center justify-center max-w-screen-lg mx-auto h-96">
+				<p class="mb-4 text-slate-600">Sorry, it seems you've not searched anything</p>
+			</div>
+		{% endif %}
+	</main>
+	{% if all_notes is defined %}
+		<div class="px-4 pb-6 text-center md:pb-16">
+			{{ knp_pagination_render(all_notes) }}
+		</div>
+	{% endif %}
+{% endblock %}

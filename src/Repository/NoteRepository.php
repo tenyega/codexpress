@@ -16,28 +16,32 @@ class NoteRepository extends ServiceEntityRepository
         parent::__construct($registry, Note::class);
     }
 
-    //    /**
-    //     * @return Note[] Returns an array of Note objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('n')
-    //            ->andWhere('n.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('n.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    /**
+     * @return array
+     * this method is used for the search bar which awe have integrated as a html 
+     */
+    public function findByQuery($query): array
+    {
+        return $this->createQueryBuilder('n')
+            ->where('n.is_public = true')
+            ->andWhere('(n.title LIKE :q OR n.content LIKE :q)')
+            ->setParameter('q', '%' . $query . '%')
+            ->orderBy('n.created_at', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 
-    //    public function findOneBySomeField($value): ?Note
-    //    {
-    //        return $this->createQueryBuilder('n')
-    //            ->andWhere('n.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    //Getting the 3 latest note of a particular user by its id and public note with descending order 
+    public function findByCreator($id): array
+    {
+        return $this->createQueryBuilder('n')
+            ->where('n.is_public= true')
+            ->andWhere('n.creator = :id')
+            ->setParameter('id', $id)
+            ->orderBy('n.created_at', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

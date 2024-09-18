@@ -4,35 +4,14 @@
 		<p>CodeXpress</p>
 	</a>
 	<div class="flex items-center justify-between gap-4">
-		<form action="" method="post" class="items-center p-1 rounded-md md:flex bg-slate-100">
-			<input type="hidden" name="csrf_token" value="{{csrf_token('authenticate')}}">
-			<input type="text" name="" id='' placeholder="Search note...?" class="bg-transparent">
-			<button type="submit">
-				{{ ux_icon('mdi:search',{'class': 'h-6 w-6 text-neutral-600 hover:text-violet-600'}) }}
-
-			</button>
-		</form>
+		{{ include('components/_partials/search.html.twig') }}
 		{% if app.user %}
 			<div class="flex items-center justify-between gap-4">
-				<a href="{{path('app_note_new')}}" class="p-2 border-2 rounded-md border-neutral-700">
-					{{ ux_icon('mdi:plus-thick',{'class': 'h-6 w-6'}) }}
-				</a>
-				<a href="{{path('app_profile_edit')}}" class="p-2 border-2 rounded-md border-neutral-700">
-					{{ ux_icon('mdi:cog-outline',{'class': 'h-6 w-6'}) }}
-				</a>
-				<a href="{{path('app_note_user', {'username': app.user.username ?? 'martine'})}}" class="p-2 rounded-full">
-					<img src="{{ app.user.image ?? 'https://avatar.iran.liara.run/public/30' }}" alt="logo" width="32" class="">
 
-				</a>
+				{{ include('components/_partials/navbar-login.html.twig') }}
 
-				<a href="{{path('app_logout') }}" class="p-2 border-2 rounded-md border-neutral-700" title='logout'>
-					{{ ux_icon('tabler:logout-2',{'class': 'h-6 w-6'}) }}
-
-				</a>
 			{% else %}
-				<a href="{{path('app_login')}}" class="p-2 border-2 rounded-md border-neutral-700" title='login'>
-					{{ ux_icon('material-symbols:login',{'class': 'h-6 w-6'}) }}
-				</a>
+				{{ include('components/_partials/navbar-logout.html.twig') }}
 			{% endif %}
 		</div>
 	</div>

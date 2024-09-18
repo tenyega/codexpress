@@ -1,0 +1,21 @@
+<a href="{{path('app_search')}}" class="p-2 border-2 rounded-md border-neutral-700" title="Search">
+	{{ ux_icon('mdi:search',{'class': 'h-6 w-6'}) }}
+</a>
+<a href="{{path('app_note_all')}}" class="p-2 border-2 rounded-md border-neutral-700" title="All notes">
+	{{ ux_icon('mdi:archive-outline',{'class': 'h-6 w-6'}) }}
+</a>
+<a href="{{path('app_note_new')}}" class="p-2 border-2 rounded-md border-neutral-700" title="Create New Note">
+	{{ ux_icon('mdi:plus-thick',{'class': 'h-6 w-6'}) }}
+</a>
+<a href="{{path('app_profile_edit')}}" class="p-2 border-2 rounded-md border-neutral-700" title="Edit Profile">
+	{{ ux_icon('mdi:cog-outline',{'class': 'h-6 w-6'}) }}
+</a>
+<a href="{{ path('app_profile')}}" class="transition-transform duration-200 ease-in-out rounded-full shadow-md hover:scale-95">
+	<div class="flex items-center justify-center w-12 h-12 overflow-hidden rounded-full">
+		<img src="{{ '/images/uploads/' ~ app.user.image ?? 'default.png' }}" alt="logo" class="object-cover w-full h-full rounded-full">
+	</div>
+
+</a>
+
+
+{# When the user is logged in  #}

@@ -3,16 +3,8 @@
 namespace App\Service;
 
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-/**
- * Service to upload an image for our application CodeXpress
- * Image( .jpg, .jpeg, .png, .gif)
- * - Document ( for later )
- *
- * Methods: 
- * uploading a new image 
- * deleting  the old images 
- */
 class UploaderService
 {
     private $param;
@@ -22,19 +14,27 @@ class UploaderService
         $this->param = $parameterBag;
     }
 
-    public function uploadImage($file): string
+    public function uploadImage(UploadedFile $file): string
     {
         try {
-            /**
-             * This original name we can keep it for later if u want to use a portion original name given by the user to our own file name which is being saved to our uploads_images_directory
-             */
-            //    $orignalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
             $fileName = uniqid('image-') . '.' . $file->guessExtension();
             $file->move($this->param->get('uploads_images_directory'), $fileName);
 
-            return $this->param->get('uploads_images_directory') . '/' . $fileName;
+            return $fileName;
         } catch (\Exception $e) {
-            throw new \Exception('An error occured while uploading the image: ' . $e->getMessage());
+            throw new \Exception('An error occurred while uploading the image: ' . $e->getMessage());
+        }
+    }
+
+    public function deleteImage(string $fileName): void
+    {
+        try {
+            $filePath = $this->param->get('uploads_images_directory') . '/' . $fileName;
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+        } catch (\Exception $e) {
+            throw new \Exception('An error occurred while deleting the image: ' . $e->getMessage());
         }
     }
 }
