@@ -7,12 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[ORM\Entity(repositoryClass: NoteRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class Note
 {
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -30,9 +30,7 @@ class Note
     #[ORM\Column]
     private ?bool $is_public = null;
 
-    #[ORM\Column(type: Types::BIGINT)]
-    private ?string $views = null;
-
+   
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
@@ -59,6 +57,12 @@ class Note
     #[ORM\OneToMany(targetEntity: Like::class, mappedBy: 'note', orphanRemoval: true)]
     private Collection $likes;
 
+    /**
+     * @var Collection<int, View>
+     */
+    #[ORM\OneToMany(targetEntity: View::class, mappedBy: 'note')]
+    private Collection $views;
+
 
 
     public function __construct()
@@ -68,7 +72,7 @@ class Note
         // $this->title = 'new title -' . $this->getId(); // Just to get  a unique title for our note.
         $this->title = uniqid('note-'); // Just to get  a unique title for our note.
         $this->likes = new ArrayCollection();
-        $this->views = 0;
+        $this->views = new ArrayCollection();
     }
 
     #[ORM\PrePersist]
@@ -137,17 +141,6 @@ class Note
         return $this;
     }
 
-    public function getViews(): ?string
-    {
-        return $this->views;
-    }
-
-    public function setViews(string $views): static
-    {
-        $this->views = $views;
-
-        return $this;
-    }
 
     public function getCreatedAt(): ?\DateTimeImmutable
     {
@@ -251,6 +244,36 @@ class Note
             // set the owning side to null (unless already changed)
             if ($like->getNote() === $this) {
                 $like->setNote(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, View>
+     */
+    public function getViews(): Collection
+    {
+        return $this->views;
+    }
+
+    public function addView(View $view): static
+    {
+        if (!$this->views->contains($view)) {
+            $this->views->add($view);
+            $view->setNote($this);
+        }
+
+        return $this;
+    }
+
+    public function removeView(View $view): static
+    {
+        if ($this->views->removeElement($view)) {
+            // set the owning side to null (unless already changed)
+            if ($view->getNote() === $this) {
+                $view->setNote(null);
             }
         }
 

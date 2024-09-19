@@ -47,9 +47,21 @@
 						<input type="hidden" name="note_id" value="{{ note.id }}">
 						<input type="hidden" name="creator_id" value="{{ app.user.id ?? 1 }}">
 						<button type="submit" class="flex items-center self-end gap-1 px-3 py-2 transition-all duration-200 ease-in-out rounded-md bg-violet-100 hover:bg-violet-200 w-fit">
-							{% set likes = note.views %}
+							{% set likes = note.likes|length %}
 							{{ ux_icon('mdi:heart-outline', { 'class': 'h-5 w-5 text-violet-950 mr-1 inline-block' }) }}
 							{{ likes|format_number }}
+						</button>
+					</form>
+					<form action="" method="post">
+						<input type="hidden" name="csrf_token" value="{{ csrf_token('authenticate') }}">
+						<input type="hidden" name="note_id" value="{{ note.id }}">
+						<input type="hidden" name="creator_id" value="{{ app.user.id ?? 1 }}">
+
+						<button type="submit" class="flex items-center self-end gap-1 px-3 py-2 transition-all duration-200 ease-in-out rounded-md bg-violet-100 hover:bg-violet-200 w-fit">
+
+							{% set views = note.views|length %}
+							{{ ux_icon('mdi:eye-settings-outline', { 'class': 'h-5 w-5 text-violet-950 mr-1 inline-block' }) }}
+							{{ views }}
 						</button>
 					</form>
 					{% for item in note.creator.networks %}

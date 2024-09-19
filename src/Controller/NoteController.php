@@ -4,13 +4,18 @@ namespace App\Controller;
 
 use App\Entity\Note;
 use App\Entity\User;
+use App\Entity\View;
 use App\Form\NoteType;
 use App\Repository\NoteRepository;
 use App\Repository\UserRepository;
+use App\Repository\ViewRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Id;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -38,7 +43,7 @@ class NoteController extends AbstractController
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
 
     #[Route('/n/{slug}', name: 'app_note_show')]
-    public function show(NoteRepository $nr, string $slug): Response
+    public function show(NoteRepository $nr, string $slug, EntityManagerInterface $em, RequestStack $requestStack, ViewRepository $vr): Response
     {
 
         /**
@@ -47,12 +52,19 @@ class NoteController extends AbstractController
         $note = $nr->findOneBy(['slug' => $slug]);
         // $array = $note->getCreator()->getNotes()->toArray();
         // $creatorNotes = array_slice($array, 0, 3);
-
+        // need to add the view to the view table where note_id= $note->getId()
+        $view = new View();
+        $view->setNote($note)
+            ->setIpAddress($requestStack->getCurrentRequest()->getClientIp());
+        $em->persist($view);
+        $em->flush();
         $creatorNotes = $nr->findByCreator($note->getCreator()->getId()) ?? [];
+        $views = $vr->findBynote($note->getId());
         // $note= $nr->findOneBySlug($slug);  this method is same as that of the line before. doctrine is intelligent enough to access the property to find the one which we need 
         return $this->render('note/show.html.twig', [
             'note' => $note,
-            'creatorNotes' => $creatorNotes
+            'creatorNotes' => $creatorNotes,
+            'views' => $views
         ]);
     }
     #[IsGranted('IS_AUTHENTICATED_FULLY')]

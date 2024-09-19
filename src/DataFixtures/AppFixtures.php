@@ -10,6 +10,7 @@ use App\Entity\Notification;
 use App\Entity\Offer;
 use App\Entity\Subscription;
 use App\Entity\User;
+use App\Entity\View;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -57,26 +58,28 @@ class AppFixtures extends Fixture
             $manager->persist($category);
         }
 
+
+        $users = $manager->getRepository(User::class)->findAll();
+        $notes = $manager->getRepository(Note::class)->findAll();
         // ADMIN USER 
-        $username = $faker->userName();
-        $user = new User();
-        $user->setEmail('mdolma@ymail.com')
+        $userAdmin = new User();
+        $userAdmin->setEmail('mdolma@ymail.com')
             ->setUsername('dolma')
-            ->setPassword($this->hash->hashPassword($user, '123456'))
+            ->setPassword($this->hash->hashPassword($userAdmin, '123456'))
             ->setRoles(['ROLE_ADMIN'])
             ->setImage('https://avatar.iran.liara.run/public/50');
-        $manager->persist($user);
+        $manager->persist($userAdmin);
         // Users and Notes
         for ($i = 0; $i < 10; $i++) {
-            $usernameAdmin = $faker->userName();
-            $usernameFinalAdmin = $this->slug->slug($usernameAdmin);
-            $userAdmin = new User();
-            $userAdmin->setEmail($usernameFinalAdmin . '@' . $faker->freeEmailDomain())
-                ->setUsername($usernameAdmin)
-                ->setPassword($this->hash->hashPassword($userAdmin, 'admin'))
+            $username = $faker->userName();
+            $usernameFinal = $this->slug->slug($username);
+            $user = new User();
+            $user->setEmail($usernameFinal . '@' . $faker->freeEmailDomain())
+                ->setUsername($username)
+                ->setPassword($this->hash->hashPassword($user, 'admin'))
                 ->setRoles(['ROLE_USER'])
                 ->setImage('https://avatar.iran.liara.run/public/' . $i);
-            $manager->persist($userAdmin);
+            $manager->persist($user);
 
             // Create Notes for each User
             for ($j = 0; $j < 10; $j++) {
@@ -85,7 +88,6 @@ class AppFixtures extends Fixture
                     ->setSlug($this->slug->slug($note->getTitle()))
                     ->setContent($faker->randomHtml())
                     ->setPublic($faker->boolean(50))
-                    ->setViews($faker->numberBetween(100, 10000))
                     ->setCreator($user)
                     ->setCategory($faker->randomElement($categoryArray));
                 $manager->persist($note);
@@ -100,7 +102,7 @@ class AppFixtures extends Fixture
         $notes = $manager->getRepository(Note::class)->findAll();
 
         if (!empty($users) && !empty($notes)) {
-            for ($i = 0; $i < 30; $i++) {
+            for ($i = 0; $i < 100; $i++) {
                 $like = new Like();
                 $like->setNote($faker->randomElement($notes));
                 $like->setCreator($faker->randomElement($users));
@@ -172,6 +174,16 @@ class AppFixtures extends Fixture
 
             $subscriptions->setEndDate($endDate);
             $manager->persist($subscriptions);
+        }
+
+        //VIEWS 
+        foreach ($notes as $note) {
+            for ($i = 0; $i < 10; $i++) {
+                $views = new View();
+                $views->setNote($note)
+                    ->setIpAddress($faker->localIpv4());
+                $manager->persist($views);
+            }
         }
 
         $manager->flush();
