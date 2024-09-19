@@ -15,7 +15,8 @@
 		</ul>
 		<h1 class="text-4xl font-bold md:text-5xl">{{ note.title }}</h1>
 		<div class="flex items-center gap-2 text-sm">
-			<img src="{{ note.creator.image ?? 'https://avatar.iran.liara.run/public/45' }}" alt="{{ note.creator.username }}" class="inline-block mr-2 h-7 w-7">
+			<img src="{{'/images/uploads/' ~ note.creator.image ?? 'https://avatar.iran.liara.run/public/45' }}" alt="{{ note.creator.username }}" class="inline-block mr-2 h-7 w-7">
+
 			<p class="text-slate-600">published
 				{{ note.createdAt|time_diff }}
 				ago by

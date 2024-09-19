@@ -7,7 +7,10 @@ use App\Entity\Like;
 use App\Entity\Network;
 use App\Entity\Note;
 use App\Entity\Notification;
+use App\Entity\Offer;
+use App\Entity\Subscription;
 use App\Entity\User;
+use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -45,6 +48,7 @@ class AppFixtures extends Fixture
             'Markdown' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/markdown/markdown-original.svg',
             'Java' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original-wordmark.svg',
         ];
+        //CREATING FIXTURES 
         foreach ($categories as $title => $icon) {
             $category = new Category();
             $category->setTitle($title);
@@ -55,19 +59,15 @@ class AppFixtures extends Fixture
 
         // ADMIN USER 
         $username = $faker->userName();
-        $usernameFinal = $this->slug->slug($username);
         $user = new User();
         $user->setEmail('mdolma@ymail.com')
-            ->setUsername($usernameFinal)
+            ->setUsername('dolma')
             ->setPassword($this->hash->hashPassword($user, '123456'))
             ->setRoles(['ROLE_ADMIN'])
             ->setImage('https://avatar.iran.liara.run/public/50');
-            $manager->persist($user);
+        $manager->persist($user);
         // Users and Notes
         for ($i = 0; $i < 10; $i++) {
-
-
-
             $usernameAdmin = $faker->userName();
             $usernameFinalAdmin = $this->slug->slug($usernameAdmin);
             $userAdmin = new User();
@@ -75,7 +75,7 @@ class AppFixtures extends Fixture
                 ->setUsername($usernameAdmin)
                 ->setPassword($this->hash->hashPassword($userAdmin, 'admin'))
                 ->setRoles(['ROLE_USER'])
-                ->setImage('https://avatar.iran.liara.run/public/'.$i);
+                ->setImage('https://avatar.iran.liara.run/public/' . $i);
             $manager->persist($userAdmin);
 
             // Create Notes for each User
@@ -92,7 +92,7 @@ class AppFixtures extends Fixture
             }
         }
 
-        // Persist and Flush Users and Notes
+        // Persist and Flush Users and Notes so that it doesnt keeps the last user and notes in the manager.  We need all the different users and notes to manipulate it later in our fixtures 
         $manager->flush();
 
         // Likes
@@ -142,6 +142,36 @@ class AppFixtures extends Fixture
                 ->setContent($faker->sentence())
                 ->setNoteId($faker->randomElement($notes));
             $manager->persist($notification);
+        }
+
+
+        //OFFERS
+        $offerArray = [];
+        for ($i = 0; $i < 10; $i++) {
+
+            $offers = new Offer();
+            $offers->setName($faker->word() . ' special offer')
+                ->setPrice($faker->randomFloat(2))
+                ->setFeatures($faker->paragraph(3));
+            $offerArray[] = $offers;
+            $manager->persist($offers);
+        }
+
+
+        //SUBSCRIPTIONS
+        for ($i = 0; $i < 10; $i++) {
+
+            $subscriptions = new Subscription();
+            $subscriptions->setOffer($faker->randomElement($offerArray))
+                ->setCreator($faker->randomElement($users))
+                ->setStartDate($faker->dateTimeInInterval());
+
+            $startDate = $subscriptions->getStartDate();
+            $endDate = (clone $startDate)->modify('+1 week');  // Clone the start date and add 1 week
+            $endDate = $faker->dateTimeBetween($startDate, $endDate);
+
+            $subscriptions->setEndDate($endDate);
+            $manager->persist($subscriptions);
         }
 
         $manager->flush();

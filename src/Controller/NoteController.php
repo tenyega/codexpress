@@ -44,11 +44,11 @@ class NoteController extends AbstractController
         /**
          * Get the collection of all the notes that are public and in descending order which is the most recently create first 
          */
-         $note = $nr->findOneBy(['slug' => $slug]);
+        $note = $nr->findOneBy(['slug' => $slug]);
         // $array = $note->getCreator()->getNotes()->toArray();
         // $creatorNotes = array_slice($array, 0, 3);
 
-        $creatorNotes= $nr->findByCreator($note->getCreator()->getId());
+        $creatorNotes = $nr->findByCreator($note->getCreator()->getId()) ?? [];
         // $note= $nr->findOneBySlug($slug);  this method is same as that of the line before. doctrine is intelligent enough to access the property to find the one which we need 
         return $this->render('note/show.html.twig', [
             'note' => $note,
@@ -57,7 +57,7 @@ class NoteController extends AbstractController
     }
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
 
-    #[Route('/u/{username}', name: 'app_note_user', methods: ['GET'])]
+    #[Route('/u/{username}', name: 'app_note_user', methods: ['GET', 'POST'])]
     public function userNotes(
         string $username,
         UserRepository $user
@@ -93,7 +93,7 @@ class NoteController extends AbstractController
                 ->setContent($form->get('content')->getData())
                 ->setPublic($form->get('is_public')->getData())
                 ->setCategory($form->get('category')->getData())
-                ->setCreator($form->get('creator')->getData())
+                ->setCreator($this->getUser())
             ;
             $em->persist($note);
             $em->flush();

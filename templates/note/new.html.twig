@@ -4,23 +4,17 @@
 {% endblock %}
 {% block javascripts %}
 	{{ parent() }}
- <script src="https://cdn.jsdelivr.net/npm/@tinymce/tinymce-webcomponent@2/dist/tinymce-webcomponent.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@tinymce/tinymce-webcomponent@2/dist/tinymce-webcomponent.min.js"></script>
 {% endblock %}
 
+
 {% block body %}
-	{# <tinymce-editor 
-		api-key="no-api-key" 
-		height="500" 
-		menubar="false" 
-		plugins="advlist autolink lists link image charmap preview anchor
-				        searchreplace visualblocks code fullscreen
-				        insertdatetime media table code help wordcount" 
-		toolbar="undo redo | blocks | bold italic backcolor |
-				        alignleft aligncenter alignright alignjustify |
-				        bullist numlist outdent indent | removeformat | help" 
-		content_style="body
-						      {
-						        font-family:Helvetica,Arial,sans-serif;
-						        font-size:14px
-						      }"> #}
-		{{ form(noteForm) }}{% endblock %}
+	{% if app.user %}
+		{# {{ include('components/access-denied.html.twig') }} #}
+		{# {% if app.user.email|length > 18 %} #}{{ form(noteForm) }}
+		{# {% endif %} #}
+	{% else %}
+		{# {{ include('components/access-denied.html.twig') }} #}
+		<!-- JE SUIS LÀ -->
+	Access denied
+{% endif %}{% endblock %}

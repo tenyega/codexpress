@@ -49,10 +49,7 @@ class NoteType extends AbstractType
                 'choice_label' => 'title',
 
             ])
-            ->add('creator', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'username',
-            ])
+
             ->add('submit', SubmitType::class)
         ;
     }
