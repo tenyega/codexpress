@@ -62,15 +62,17 @@ class NoteController extends AbstractController
         $creatorNotes = $nr->findByCreator($note->getCreator()->getId()) ?? [];
         $views = $vr->findBynote($note->getId());
 
-        $note_id = $request->get('note_id'); //3243    
-        $creator_id = $request->get('creator_id'); //3243    
-        // when the user have clicked on like button 
-        $like = new Like();
-        $like->setNote($nr->findOneBy(['id' => $note_id]))
-            ->setCreator($ur->findOneBy(['id' => $creator_id]));
+        if ($request->get('note_id')) {
+            $note_id = $request->get('note_id'); //3243    
+            $creator_id = $request->get('creator_id'); //3243    
+            // when the user have clicked on like button 
+            $like = new Like();
+            $like->setNote($nr->findOneBy(['id' => $note_id]))
+                ->setCreator($ur->findOneBy(['id' => $creator_id]));
 
-        $em->persist($like);
-        $em->flush();
+            $em->persist($like);
+            $em->flush();
+        }
         // $note= $nr->findOneBySlug($slug);  this method is same as that of the line before. doctrine is intelligent enough to access the property to find the one which we need 
         return $this->render('note/show.html.twig', [
             'note' => $note,

@@ -31,7 +31,7 @@
 		<aside class="flex flex-col gap-4 md:col-span-1">
 			<div class="flex flex-col gap-4 p-4 mb-4 border rounded-md">
 				<div class="flex items-center gap-2">
-					<img src="{{ '/images/uploads/' ~ note.creator.image ?? 'https://avatar.iran.liara.run/public/14' }}" alt="{{ note.creator.username }}" class="inline-block w-10 h-10 rounded-full">
+					<img src="{{ '/images/uploads/' ~ note.creator.image ?? 'default.jpg' }}" alt="{{ note.creator.username }}" class="inline-block w-10 h-10 rounded-full">
 
 					<div class="flex flex-col gap-1">
 						<p class="text-xl font-bold">{{ note.creator.username }}</p>
@@ -76,7 +76,7 @@
 					<a href="{{ path('app_note_show', {'slug': item.slug}) }}" class="flex flex-col p-4 mb-4 border rounded-md md:p-6">
 						<p class="mb-1 text-base font-semibold">{{ item.title|slice(0,22) }}...</p>
 						<p class="mb-2 text-sm text-slate-600">
-							<img src="{{ item.category.icon }}" alt="{{ item.category.title }}" class="inline-block mr-2 h-7 w-7">
+							<img src="{{ item.category.icon ?? 'default.jpg' }}" alt="{{ item.category.title }}" class="inline-block mr-2 h-7 w-7">
 							Published
 							{{ item.createdAt|time_diff }}
 							ago.

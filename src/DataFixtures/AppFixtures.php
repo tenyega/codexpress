@@ -77,8 +77,8 @@ class AppFixtures extends Fixture
             $user->setEmail($usernameFinal . '@' . $faker->freeEmailDomain())
                 ->setUsername($username)
                 ->setPassword($this->hash->hashPassword($user, 'admin'))
-                ->setRoles(['ROLE_USER'])
-                ->setImage('https://avatar.iran.liara.run/public/' . $i);
+                ->setRoles(['ROLE_USER']);
+
             $manager->persist($user);
 
             // Create Notes for each User
