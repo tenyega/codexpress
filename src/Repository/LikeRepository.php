@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Like;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -14,6 +15,18 @@ class LikeRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Like::class);
+    }
+
+    public function findOneByIdAndCreator(int $id, User $creator): ?Like
+    {
+        return $this->createQueryBuilder('l')
+            ->where('l.note = :id')
+            ->andWhere('l.creator = :creator')
+            ->setParameter('id', $id)
+            ->setParameter('creator', $creator)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
     }
 
     //    /**

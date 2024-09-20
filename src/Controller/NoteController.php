@@ -44,7 +44,7 @@ class NoteController extends AbstractController
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
 
     #[Route('/n/{slug}', name: 'app_note_show')]
-    public function show(NoteRepository $nr, UserRepository $ur, Request $request, string $slug, EntityManagerInterface $em, RequestStack $requestStack, ViewRepository $vr): Response
+    public function show(NoteRepository $nr, UserRepository $ur, Request $request, string $slug, EntityManagerInterface $em, ViewRepository $vr): Response
     {
 
         /**
@@ -54,12 +54,21 @@ class NoteController extends AbstractController
         // $array = $note->getCreator()->getNotes()->toArray();
         // $creatorNotes = array_slice($array, 0, 3);
         // need to add the view to the view table where note_id= $note->getId()
+        if (!$note) {
+            throw $this->createNotFoundException('Note not found');
+        }
         $view = new View();
         $view->setNote($note)
-            ->setIpAddress($requestStack->getCurrentRequest()->getClientIp());
+            ->setIpAddress($request->getClientIp());
         $em->persist($view);
         $em->flush();
-        $creatorNotes = $nr->findByCreator($note->getCreator()->getId()) ?? [];
+        if ($note) {
+            $creator = $note->getCreator() ?? '';
+        }
+        if ($creator) {
+            $creatorNotes = $nr->findByCreator($creator->getId()) ?? [];
+        }
+
         $views = $vr->findBynote($note->getId());
 
         if ($request->get('note_id')) {

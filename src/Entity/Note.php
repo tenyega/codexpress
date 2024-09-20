@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\HasLifecycleCallbacks]
 class Note
 {
-    
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -30,7 +30,7 @@ class Note
     #[ORM\Column]
     private ?bool $is_public = null;
 
-   
+
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
@@ -42,6 +42,11 @@ class Note
      */
     #[ORM\OneToMany(targetEntity: Notification::class, mappedBy: 'note_id', orphanRemoval: true)]
     private Collection $notifications;
+
+    #[ORM\Column]
+    private ?bool $isPremium = null;
+
+
 
     #[ORM\ManyToOne(inversedBy: 'notes')]
     #[ORM\JoinColumn(nullable: false)]
@@ -73,6 +78,7 @@ class Note
         $this->title = uniqid('note-'); // Just to get  a unique title for our note.
         $this->likes = new ArrayCollection();
         $this->views = new ArrayCollection();
+        $this->isPremium = 'false';
     }
 
     #[ORM\PrePersist]
@@ -276,6 +282,17 @@ class Note
                 $view->setNote(null);
             }
         }
+
+        return $this;
+    }
+    public function isPremium(): ?bool
+    {
+        return $this->isPremium;
+    }
+
+    public function setPremium(bool $isPremium): static
+    {
+        $this->isPremium = $isPremium;
 
         return $this;
     }

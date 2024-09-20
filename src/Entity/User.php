@@ -77,12 +77,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Subscription::class, mappedBy: 'creator', orphanRemoval: true)]
     private Collection $subscriptions;
 
+
     public function __construct()
     {
         $this->notes = new ArrayCollection();
         $this->creator = new ArrayCollection();
         $this->networks = new ArrayCollection();
         $this->subscriptions = new ArrayCollection();
+        $this->image = 'default.jpg';
     }
     #[ORM\PrePersist]
     public function setCreatedAtValue(): void
@@ -349,5 +351,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->username;
     }
 }
