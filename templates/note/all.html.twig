@@ -10,10 +10,30 @@
 			<p class="mb-4">Find out what's new on CodeXpress</p>
 		</div>
 	</header>
+	{% cache 'all_notes' ttl(3600)%}
 	<main class="max-w-screen-lg px-4 py-5 mx-auto md:py-16">
 		{{ include('components/notes-list.html.twig') }}
 	</main>
 	<div class="px-4 pb-6 text-center md:pb-16">
 		{{ knp_pagination_render(all_notes) }}
 	</div>
+	{% endcache %}
+
+
+	{% apply inky_to_html %}
+	<container>
+		<row class="welcome">
+			<columns>
+				<spacer size="35"></spacer>
+				<h1>
+					<center>
+						Nice to meet you
+						{{ app.user }}!
+					</center>
+				</h1>
+				<spacer size="10"></spacer>
+			</columns>
+		</row>
+	</container>
+	{% endapply %}
 {% endblock %}

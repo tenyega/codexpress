@@ -1,0 +1,10 @@
+<form action="{{ path('app_view', {'id': note.id}) }}" method="post">
+	<input type="hidden" name="csrf_token" value="{{ csrf_token('authenticate') }}">
+	<input type="hidden" name="note_id_view" value="{{ note.id }}">
+	<button type="submit" class="flex items-center self-end gap-1 px-3 py-2 transition-all duration-200 ease-in-out rounded-md bg-violet-100 hover:bg-violet-200 w-fit">
+		{% set views = note.views|length %}
+		{{ ux_icon('mdi:eye-settings-outline', { 'class': 'h-5 w-5 text-violet-950 mr-1 inline-block' }) }}
+		{{ views }}
+
+	</button>
+</form>

@@ -85,6 +85,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->networks = new ArrayCollection();
         $this->subscriptions = new ArrayCollection();
         $this->image = 'default.jpg';
+        $this->isVerified= false;
     }
     #[ORM\PrePersist]
     public function setCreatedAtValue(): void
