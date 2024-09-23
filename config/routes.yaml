@@ -1,5 +1,30 @@
+root_redirect:
+    path: /
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        route: app_home
+        permanent: true
+        _locale: en
+
 controllers:
+    prefix: /{_locale}/
+    requirements:
+        _locale: en|fr|es
     resource:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+
+# Here we changed inside the routes.yaml to get the different  languages in our url in the format fr/en/es
+#  prefix: /{_locale}/
+#     requirements:
+        # _locale: en|fr|es
+# so now our home page  at route / will show the symfony initial page we need to add 
+# root_redirect: 
+#     path: /
+#     controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    # defaults:
+    #     route: app_home
+    #     permanent: true
+    #     _locale: en

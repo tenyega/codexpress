@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	Search results
+	{{"Search results"| trans}}
 {% endblock %}
 
 {% block body %}
 	<header class="py-5 bg-gradient-to-r from-violet-100 via-slate-100 to-indigo-100 md:py-16">
 		<div class="px-4 mx-auto text-center sm:max-w-screen-sm md:max-w-screen-lg">
-			<h1 class="mb-6 text-4xl font-bold md:text-5xl">Search results</h1>
+			<h1 class="mb-6 text-4xl font-bold md:text-5xl">{{"Search results"| trans}}</h1>
 			{% if searchQuery is defined %}
 				<p class="mb-4">
-					Search results for
+					{{"Search results for"| trans}}
 					<strong>{{ searchQuery }}</strong>
 				</p>
 			{% else %}
@@ -26,15 +26,15 @@
 			{% if all_notes|length > 0 %}
 				<p class="mb-4 text-center">
 					{{ all_notes|length }}
-					results on this page
+					{{"results on this page"| trans}}
 				</p>
 				{{ include('components/notes-list.html.twig') }}
 			{% else %}
-				<p class="mb-4 text-center text-slate-600">No results found</p>
+				<p class="mb-4 text-center text-slate-600">{{"No results found"| trans}}</p>
 			{% endif %}
 		{% else %}
 			<div class="flex flex-col items-center justify-center max-w-screen-lg mx-auto h-96">
-				<p class="mb-4 text-slate-600">Sorry, it seems you've not searched anything</p>
+				<p class="mb-4 text-slate-600">{{"Sorry, it seems you've not searched anything"| trans}}</p>
 			</div>
 		{% endif %}
 	</main>

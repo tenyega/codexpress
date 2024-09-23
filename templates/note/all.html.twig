@@ -1,13 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}All public notes
+{% block title %}
+	{{'All public notes'| trans}}
 {% endblock %}
 
 {% block body %}
 	<header class="py-5 bg-gradient-to-r from-violet-100 via-slate-100 to-indigo-100 md:py-16">
 		<div class="px-4 mx-auto sm:max-w-screen-sm md:max-w-screen-lg">
-			<h1 class="text-4xl font-bold md:text-5xl">Discover all public notes</h1>
-			<p class="mb-4">Find out what's new on CodeXpress</p>
+			<h1 class="text-4xl font-bold md:text-5xl">{{'Discover all public notes'| trans}}</h1>
+			<p class="mb-4">{{"Find out what's new on CodeXpress"| trans}}</p>
 		</div>
 	</header>
 	{% cache 'all_notes' ttl(3600)%}
@@ -27,7 +28,7 @@
 				<spacer size="35"></spacer>
 				<h1>
 					<center>
-						Nice to meet you
+						{{'Nice to meet you'[| trans]}}
 						{{ app.user }}!
 					</center>
 				</h1>

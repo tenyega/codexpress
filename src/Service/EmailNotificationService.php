@@ -32,7 +32,7 @@ class EmailNotificationService
             //->cc('cc@example.com')
             //->bcc('bcc@example.com')
             //->replyTo('fabien@example.com')
-
+                                              
 
 
             if ($case === 'premium') {

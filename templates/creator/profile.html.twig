@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User profile
+{% block title %}{{'User profile'| trans}}
 {% endblock %}
 
 {% block body %}
 	<header class="py-5 mb-16 md:py-16 bg-gradient-to-r from-violet-100 via-slate-100 to-indigo-100">
 		<div class="px-4 mx-auto text-center sm:max-w-screen-sm md:max-w-screen-lg">
-			<h1 class="mb-4 text-4xl font-bold md:text-5xl">Your profile</h1>
+			<h1 class="mb-4 text-4xl font-bold md:text-5xl">{{'Your profile'| trans}}</h1>
 			<img src="{{ '/images/uploads/' ~ app.user.image ?? 'default.jpg' }}" width="150" class="inline-block rounded-full shadow-md">
 
 		</div>
@@ -15,10 +15,10 @@
 		{% if app.user.notes is empty %}
 			<div class="text-center">
 				<p class="mb-5 text-violet-950">
-					You haven't created any note yet
+					{{"You haven't created any note yet"| trans}}
 				</p>
 				<a href="{{ path('app_note_new') }}" class="self-end px-3 py-2 transition-all duration-200 ease-in-out rounded-md bg-violet-100 hover:bg-violet-200 w-fit">
-					Create a new note
+					{{'Create a new note'| trans}}
 				</a>
 			</div>
 		{% else %}
@@ -28,7 +28,7 @@
 						{% if item.isPublic == false %}
 							<div class="absolute bottom-0 left-0 flex gap-2 px-2 py-1 text-sm bg-yellow-100 rounded rounded-bl-md-tr-md">
 								{{ ux_icon('mdi:lock-open-outline', {'class':'h-4 w-4'})}}
-								Private
+								{{'Private'| trans}}
 							</div>
 						{% endif %}
 						<h5 class="mb-1">{{ item.title|slice(0,40) }}...</h5>
@@ -38,7 +38,7 @@
 								<img src="{{ item.category.icon ?? 'default.jpg' }}" alt="{{ item.category.title }}" class="inline-block mr-2 h-7 w-7">
 							</p>
 							<a href="{{ path('app_note_show', {'slug': item.slug}) }}" class="self-end px-3 py-2 text-sm transition-all duration-200 ease-in-out rounded-md bg-violet-100 hover:bg-violet-200 w-fit">
-								check it
+								{{'check it'| trans}}
 							</a>
 						</div>
 					</div>

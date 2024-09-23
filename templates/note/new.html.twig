@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Add New Note
+{% block title %}{{'Add New Note'| trans}}
 {% endblock %}
 {% block javascripts %}
 	{{ parent() }}
@@ -16,5 +16,5 @@
 	{% else %}
 		{# {{ include('components/access-denied.html.twig') }} #}
 		<!-- JE SUIS LÀ -->
-	Access denied
+	{{'Access denied'| trans}}
 {% endif %}{% endblock %}

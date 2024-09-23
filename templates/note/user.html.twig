@@ -1,56 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ creator.username }}'s notes{% endblock %}
+{% block title %}
+	{{ creator.username }}{{"'s notes"| trans}}
+{% endblock %}
 
 {% block body %}
-    <header class="py-5 md:py-16">
-        <div class="px-4 mx-auto sm:max-w-screen-sm md:max-w-screen-lg">
-            <ul class="flex gap-2 mb-4 text-sm text-violet-950">
-                <li class="after:content-['>']">
-                    <a href="{{ path('app_home') }}">Home</a>
-                </li>
-                <li class="after:content-['>']">
-                    <a href="{{ path('app_note_all') }}">All notes</a>
-                </li>
-                <li class="text-violet-600">
-                    {{ creator.username }}'s notes
-                </li>
-            </ul>
-            <h1 class="mb-4 text-4xl font-bold md:text-5xl">{{ creator.username }}'s notes</h1>
-            <div class="flex items-center gap-4">
-                <div 
-                    class="inline-block w-20 h-20 bg-center bg-cover rounded-full shadow-md"
-                    style="background-image: url('{{ '/images/uploads/' ~ creator.image ?? 'default.jpg' }}')"
-                ></div>
-                <div>
-                    <p class="text-xl font-bold">{{ creator.username }}</p>
-                    <p class="text-sm text-slate-600">Member since {{ creator.createdAt|time_diff }} ago</p>
-                </div>
-            </div>
-        </div>
-    </header>
+	<header class="py-5 md:py-16">
+		<div class="px-4 mx-auto sm:max-w-screen-sm md:max-w-screen-lg">
+			<ul class="flex gap-2 mb-4 text-sm text-violet-950">
+				<li class="after:content-['>']">
+					<a href="{{ path('app_home') }}">{{'Home'| trans}}</a>
+				</li>
+				<li class="after:content-['>']">
+					<a href="{{ path('app_note_all') }}">{{'All notes'| trans}}</a>
+				</li>
+				<li class="text-violet-600">
+					{{ creator.username }}{{"'s notes"| trans}}
+				</li>
+			</ul>
+			<h1 class="mb-4 text-4xl font-bold md:text-5xl">{{ creator.username }}{{"'s notes"| trans}}</h1>
+			<div class="flex items-center gap-4">
+				<div class="inline-block w-20 h-20 bg-center bg-cover rounded-full shadow-md" style="background-image: url('{{ '/images/uploads/' ~ creator.image ?? 'default.jpg' }}')"></div>
+				<div>
+					<p class="text-xl font-bold">{{ creator.username }}</p>
+					<p class="text-sm text-slate-600">{{'Member since'| trans}}
+						{{ creator.createdAt|time_diff }}
+						{{'ago'| trans}}</p>
+				</div>
+			</div>
+		</div>
+	</header>
 
-    <main class="max-w-screen-lg px-4 py-8 mx-auto">
-        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {% for item in userNotes %}
-                <a href="{{ path('app_note_show', {'slug': item.slug}) }}" class="p-6 transition-shadow duration-300 bg-white rounded-lg shadow-md hover:shadow-lg">
-                    <h2 class="mb-2 text-xl font-semibold">{{ item.title }}</h2>
-                    <p class="mb-4 text-slate-600">{{ item.content|slice(0, 100) }}...</p>
-                    <div class="flex items-center justify-between text-sm">
-                        <span class="flex items-center text-violet-600">
-                            <img src="{{ item.category.icon }}" alt="{{ item.category.title }}" class="inline-block w-5 h-5 mr-1">
-                            {{ item.category.title }}
-                        </span>
-                        <span class="text-slate-500">{{ item.createdAt|time_diff }} ago</span>
-                    </div>
-                </a>
-            {% else %}
-                <p class="text-lg text-center col-span-full text-slate-600">No notes found for this user.</p>
-            {% endfor %}
-        </div>
-    </main>
+	<main class="max-w-screen-lg px-4 py-8 mx-auto">
+		<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+			{% for item in userNotes %}
+				<a href="{{ path('app_note_show', {'slug': item.slug}) }}" class="p-6 transition-shadow duration-300 bg-white rounded-lg shadow-md hover:shadow-lg">
+					<h2 class="mb-2 text-xl font-semibold">{{ item.title }}</h2>
+					<p class="mb-4 text-slate-600">{{ item.content|slice(0, 100) }}...</p>
+					<div class="flex items-center justify-between text-sm">
+						<span class="flex items-center text-violet-600">
+							<img src="{{ item.category.icon }}" alt="{{ item.category.title }}" class="inline-block w-5 h-5 mr-1">
+							{{ item.category.title }}
+						</span>
+						<span class="text-slate-500">{{ item.createdAt|time_diff }}{{' ago'| trans}}</span>
+					</div>
+				</a>
+			{% else %}
+				<p class="text-lg text-center col-span-full text-slate-600">{{'No notes found for this user.'| trans}}</p>
+			{% endfor %}
+		</div>
+	</main>
 
-    <div class="max-w-screen-lg px-4 pb-6 mx-auto md:pb-16">
-        {{ include('components/cta.html.twig') }}
-    </div>
+	<div class="max-w-screen-lg px-4 pb-6 mx-auto md:pb-16">
+		{{ include('components/cta.html.twig') }}
+	</div>
 {% endblock %}

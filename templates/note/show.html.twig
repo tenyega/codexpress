@@ -39,9 +39,9 @@
 					<div class="inline-block w-10 h-10 bg-center bg-cover rounded-full shadow-md" style="background-image: url('{{ '/images/uploads/' ~ note.creator.image ?? 'default.jpg' }}')"></div>
 					<div class="flex flex-col gap-1">
 						<p class="text-xl font-bold">{{ note.creator.username }}</p>
-						<p class="text-sm text-slate-600">Member since
+						<p class="text-sm text-slate-600">{{'Member since'| trans}}
 							{{ note.creator.createdAt|time_diff }}
-							ago</p>
+							{{'ago'| trans}}</p>
 					</div>
 
 
@@ -86,9 +86,9 @@
 						<p class="mb-1 text-base font-semibold">{{ item.title|slice(0,22) }}...</p>
 						<p class="mb-2 text-sm text-slate-600">
 							<img src="{{ item.category.icon }}" alt="{{ item.category.title }}" class="inline-block mr-2 h-7 w-7">
-							Published
+							{{'Published'| trans}}
 							{{ item.createdAt|time_diff }}
-							ago.
+							{{'ago.'| trans}}
 						</p>
 					</a>
 				{% endfor %}
