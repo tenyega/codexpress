@@ -13,7 +13,7 @@ class EmailNotificationService
     {
         $this->mailer = $mailer;
     }
-    public function sendEmail(string $receiver, string $case): ?string
+    public function sendEmail(string $receiver, array $case): ?string
     {
         try {
             // $email = (new Email())
@@ -28,24 +28,13 @@ class EmailNotificationService
             //     ->html('<p>See Twig integration for better HTML integration!</p>');
             $email = (new TemplatedEmail())
                 ->from('hello@codexpress.fr')
-                ->to($receiver);
+                ->to($receiver)
+                ->subject($case['subject'])
+                ->priority(Email::PRIORITY_HIGH)
+                ->htmlTemplate('email/' . $case['template'] . '.html.twig' ?? 'email/base_email.html.twig');
             //->cc('cc@example.com')
             //->bcc('bcc@example.com')
             //->replyTo('fabien@example.com')
-                                              
-
-
-            if ($case === 'premium') {
-                $email->priority(Email::PRIORITY_HIGH)
-                    ->subject('Thank you for your purchase! ')
-                    ->htmlTemplate('email/premium.html.twig')
-                ;
-            } elseif ($case = 'registration') {
-                $email->subject('Welcome to codeXpress, explore the world of coding with us. !!! ')
-                    ->htmlTemplate('email/welcome.html.twig');
-            } else {
-                $email->htmlTemplate('email/base_email.html.twig');
-            }
 
 
             $this->mailer->send($email);
