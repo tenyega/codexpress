@@ -3,18 +3,19 @@
 namespace App\Controller;
 
 use App\Service\PaymentService;
-use Stripe\Forwarding\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 class SubscriptionController extends AbstractController
 {
     // Route lorsque le paiement est réussi
-    #[Route('/payment-success', name: 'app_payment_success')]
+    #[Route('/payment-success', name: 'app_payment_success', methods: ['GET'])]
     public function paymentSuccess(Request $request): Response
     {
+        dd($request);
         return $this->render('subscription/payment-success.html.twig');
     }
 

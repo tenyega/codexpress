@@ -12,16 +12,14 @@ class OfferFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $offerArray = [];
-        $faker = Factory::create('fr_FR');
         for ($i = 0; $i < 10; $i++) {
 
             $offers = new Offer();
-            $offers->setName($faker->word() . ' special offer')
-                ->setPrice($faker->randomFloat(2))
-                ->setFeatures($faker->paragraph(3));
-            $offerArray[] = $offers;
+            $offers->setName('Premium')
+                ->setPrice('4.97')
+                ->setFeatures('Get the premium membership to get access to our premium code ');
             $manager->persist($offers);
         }
+        $manager->flush();
     }
 }
