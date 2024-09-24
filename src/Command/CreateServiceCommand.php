@@ -16,6 +16,8 @@ use Symfony\Component\Filesystem\Filesystem;
 )]
 class CreateServiceCommand extends Command
 {
+
+    // this class is our own creation not given my symfony to use as a creation of commande create:service 
     private $projectDir;
 
     public function __construct(string $projectDir)
@@ -70,9 +72,12 @@ use Symfony\Component\Mailer\MailerInterface;
 abstract class AbstractService
 {
     public function __construct(
-        protected ParameterBagInterface \$parameterBag,
+        protected ParameterBagInterface \$parameter,
         protected MailerInterface \$mailer
-    ) {}
+    ) {
+        $this\->parameter = \$parameter;
+        $this\->mailer = \$mailer;
+        }
 }
 EOT;
 
