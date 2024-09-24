@@ -1,52 +1,58 @@
-"Please sign in": "Veuillez s'inscrire"
-"You are logged in as": "Vous êtes connecté en tant que"
-"Logout": "Déconnexion"
-"Email": "Email"
-"Password": "Mot de passe"
-"Sign in": "Se Connecter"
-"Register": "S'inscrire"
-"Access a full online course to learn how to build applications with Symfony, the most popular PHP framework. You will learn how to build a applications that improves the lives of people around the world.": "Accédez à un cours en ligne complet pour apprendre à créer des applications avec Symfony, le framework PHP le plus populaire. Vous apprendrez à créer des applications qui améliorent la vie des gens à travers le monde."
-"Start learning": "Commencez à apprendre"
-"CodeXpress by Dolma": "CodeXpress Par Dolma"
-"CodeXpress": "CodeXpress"
-"copy": "Copier"
-"Premium": "Premium"
-"check it": "Consultez-le"
-"Home": "Accueil"
-"All notes": "Toutes les notes"
-"published": "publié"
-"ago by": "il y a par"
-"Premium notice": "Avis premium"
-"This note is only available to premium users.": "Cette note est uniquement disponible pour les utilisateurs premium"
-"Subscribe here for coffee per month": "Abonnez-vous ici pour le prix d'un café par mois"
-"Go Premium": "Devenir Premium"
-"Edit Profile": "Modifier le profil"
-"User profile": "Profil utilisateur"
-"Your profile": "Votre profil"
+'Please sign in': "Veuillez s'inscrire"
+'You are logged in as': 'Vous êtes connecté en tant que'
+Logout: Déconnexion
+Email: Email
+Password: 'Mot de passe'
+'Sign in': 'Se Connecter'
+Register: "S'inscrire"
+'Access a full online course to learn how to build applications with Symfony, the most popular PHP framework. You will learn how to build a applications that improves the lives of people around the world.': 'Accédez à un cours en ligne complet pour apprendre à créer des applications avec Symfony, le framework PHP le plus populaire. Vous apprendrez à créer des applications qui améliorent la vie des gens à travers le monde.'
+'Start learning': 'Commencez à apprendre'
+'CodeXpress by Dolma': 'CodeXpress Par Dolma'
+CodeXpress: CodeXpress
+copy: Copier
+Premium: Premium
+'check it': Consultez-le
+Home: Accueil
+'All notes': 'Toutes les notes'
+published: publié
+'ago by': 'il y a par'
+'Premium notice': 'Avis premium'
+'This note is only available to premium users.': 'Cette note est uniquement disponible pour les utilisateurs premium'
+'Subscribe here for coffee per month': "Abonnez-vous ici pour le prix d'un café par mois"
+'Go Premium': 'Devenir Premium'
+'Edit Profile': 'Modifier le profil'
+'User profile': 'Profil utilisateur'
+'Your profile': 'Votre profil'
 "You haven't created any note yet": "Vous n'avez encore créé aucune note"
-"Create a new note": "Créer une nouvelle note"
-"Private": "Privé"
-"USER PROFILE": "PROFIL UTILISATEUR"
-"PROFILE OF THE USER": "PROFIL DE L'UTILISATEUR"
-"ACHAT PREMIUM": "ACHAT PREMIUM"
-"WELCOME TO CODEXPRESS": "BIENVENUE SUR CODEXPRESS"
-"Stop wasting time on Google search": "Arrêtez de perdre du temps sur les recherches Google"
-"Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque tenetur quibusdam maxime quaerat odit soluta doloremque, voluptate adipisci pariatur, quae eos dolor ratione voluptatibus architecto laborum? Distinctio et fugit iusto!": "__Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque tenetur quibusdam maxime quaerat odit soluta doloremque, voluptate adipisci pariatur, quae eos dolor ratione voluptatibus architecto laborum? Distinctio et fugit iusto!"
-"Recent notes": "Notes récentes"
-"There are curently": "Il y a actuellement"
-"notes shared on CodeXpress": "notes partagées sur CodeXpress"
-"Homepage": "Page d'accueil"
-"Log in!": "Connectez-vous!"
-"Edit Your  Note": "Modifier votre note"
-"Add New Note": "Ajouter une nouvelle note"
-"Access denied": "Accès refusé"
-"Member since": "Membre depuis"
-"ago": "il y a"
-"Published": "Publié"
-"'s notes": "Notes de"
-"No notes found for this user.": "Aucune note trouvée pour cet utilisateur."
-"Search results": "Résultats de la recherche"
-"Search results for": "Résultats de la recherche pour"
-"results on this page": "résultats sur cette page"
-"No results found": "Aucun résultat trouvé"
+'Create a new note': 'Créer une nouvelle note'
+Private: Privé
+'USER PROFILE': 'PROFIL UTILISATEUR'
+'PROFILE OF THE USER': "PROFIL DE L'UTILISATEUR"
+'ACHAT PREMIUM': 'ACHAT PREMIUM'
+'WELCOME TO CODEXPRESS': 'BIENVENUE SUR CODEXPRESS'
+'Stop wasting time on Google search': 'Arrêtez de perdre du temps sur les recherches Google'
+'Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque tenetur quibusdam maxime quaerat odit soluta doloremque, voluptate adipisci pariatur, quae eos dolor ratione voluptatibus architecto laborum? Distinctio et fugit iusto!': '__Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque tenetur quibusdam maxime quaerat odit soluta doloremque, voluptate adipisci pariatur, quae eos dolor ratione voluptatibus architecto laborum? Distinctio et fugit iusto!'
+'Recent notes': 'Notes récentes'
+'There are curently': 'Il y a actuellement'
+'notes shared on CodeXpress': 'notes partagées sur CodeXpress'
+Homepage: "Page d'accueil"
+'Log in!': Connectez-vous!
+'Edit Your  Note': 'Modifier votre note'
+'Add New Note': 'Ajouter une nouvelle note'
+'Access denied': 'Accès refusé'
+'Member since': 'Membre depuis'
+ago: 'il y a'
+Published: Publié
+"'s notes": 'Notes de'
+'No notes found for this user.': 'Aucune note trouvée pour cet utilisateur.'
+'Search results': 'Résultats de la recherche'
+'Search results for': 'Résultats de la recherche pour'
+'results on this page': 'résultats sur cette page'
+'No results found': 'Aucun résultat trouvé'
 "Sorry, it seems you've not searched anything": "Désolé, il semble que vous n'ayez rien cherché"
+'All public notes': '__All public notes'
+'Discover all public notes': '__Discover all public notes'
+"Find out what's new on CodeXpress": "__Find out what's new on CodeXpress"
+'Nice to meet you': '__Nice to meet you'
+ago.: __ago.
+'Your payment has been successful': '__Your payment has been successful'

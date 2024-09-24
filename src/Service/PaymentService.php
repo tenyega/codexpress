@@ -12,7 +12,6 @@ use Stripe\Checkout\Session;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
-use function Symfony\Component\Clock\now;
 
 class PaymentService extends AbstractService
 {

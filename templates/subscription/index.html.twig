@@ -1,33 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SuscriptionController!
+{% block title %}Subscription !
 {% endblock %}
 
 {% block body %}
-	<style>
-		.example-wrapper {
-			margin: 1em auto;
-			max-width: 800px;
-			width: 95%;
-			font: 18px / 1.5 sans-serif;
-		}
-		.example-wrapper code {
-			background: #F5F5F5;
-			padding: 2px 6px;
-		}
-	</style>
 
-	<div class="example-wrapper">
-		<h1>Hello ✅</h1>
 
-		This friendly message is coming from:
-		<ul>
-			<li>Your controller at
-				<code>C:/YEGA/CDA/MY_WORK/Symfony/codexpress/src/Controller/SuscriptionController.php</code>
-			</li>
-			<li>Your template at
-				<code>C:/YEGA/CDA/MY_WORK/Symfony/codexpress/templates/suscription/index.html.twig</code>
-			</li>
-		</ul>
+	<div class="w-full h-full p-6 py-5 mt-8 text-center rounded-md md:py-16 md:p-8">
+		<div class="max-w-screen-lg mx-auto">
+			<a href="{{ path('app_subscription_checkout')}}" class="self-end px-3 py-2 transition-all duration-200 ease-in-out bg-green-700 rounded-md hover:bg-green-600 w-fit text-slate-50">
+				{{ ux_icon('mdi:coffee-outline', { 'class': 'h-5 w-5 text-slate-50 inline-block' }) }}
+				{{'Go Premium'| trans }}
+			</a>
+		</div>
 	</div>
+
 {% endblock %}
